@@ -34,7 +34,7 @@ public class StudentController {
     public Student add(@RequestBody Student s) {
         s.setId((long) (students.size() + 1));
         students.add(s);
-        logger.info("Added student: id={}, name={}", s.getId(), s.getName());
+       logger.info("Added student with id={}", s.getId());
         return s;
     }
 }
