@@ -13,24 +13,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class StudentControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+@Autowired
+private MockMvc mockMvc;
 
-    @Test
-    void shouldReturnAllStudents() throws Exception {
-        mockMvc.perform(get("/api/students"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.length()").value(2));
-    }
+@Test
+void shouldReturnAllStudents() throws Exception {
+mockMvc.perform(get("/api/students"))
+.andExpect(status().isOk())
+.andExpect(jsonPath("$.length()").value(2));
+}
 
-    @Test
-    void shouldAddNewStudent() throws Exception {
-        String json = "{\"name\":\"Khalid\",\"course\":\"SE4111\",\"grade\":91.0}";
+@Test
+void shouldAddNewStudent() throws Exception {
+String json = "{\"name\":\"Khalid\",\"course\":\"SE4111\",\"grade\":91.0}";
 
-        mockMvc.perform(post("/api/students")
-                .contentType("application/json")
-                .content(json))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.name").value("Khalid"));
-    }
+mockMvc.perform(post("/api/students")
+.contentType("application/json")
+.content(json))
+.andExpect(status().isOk())
+.andExpect(jsonPath("$.name").value("Khalid"));
+}
+@Test
+void healthCheckShouldReturnUp() throws Exception {
+mockMvc.perform(get("/api/health"))
+.andExpect(status().isOk())
+.andExpect(jsonPath("$.status").value("UP"));
+}
 }
